@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+        
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+<script type="application/javascript">
+$(function(){
+	var owner=localStorage.owner;
+	var email=localStorage.email;
+	
+var yohoAPI = urlval+"/weddingapp/eventdetail/?jsoncallback=?&owner="+owner+"&email="+email;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+		$('#profilepic').attr('src',it.profilepic);
+		$('#date').html(it.date);
+		$('#weddingname').html(it.weddingname+' Wedding');
+		$('#location').html(it.location);
+		$('#time').html(it.time);
+		$('.roomname').html(it.roomname);
+		$('#statuscolor').css('color',it.colour);
+		$('#statusname').html(it.statusname);
+		$('#statusimg').attr('src',it.statusimg);
+		$('#address').html(it.address);
+		$('#food_pref').html(it.foodpref);
+	        $('#foodpref').val(it.foodslno);
+				
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+ 	
+/*var yohoAPI = urlval+"/weddingapp/getfoodpref/?jsoncallback=?&email="+email;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	 var foodpref=data.items;
+	 $('#food_pref').html(foodpref);
+	 $('#foodpref').val(foodpref);
+  })
+  .error(function() { alert("Please check your network connection"); });
+ */ 
+  
+var yohoAPI = urlval+"/weddingapp/allfoodpref/?jsoncallback=?&owner="+owner;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+				 $.each( it, function( i1, it1 ) {
+				  var details=$('#foodpref_detail').html();
+
+						if(it1.id){
+						details=details.replace('**foodprefslno**',it1.id);
+						}
+						if(it1.food){
+						details=details.replace('**foodpref**',it1.food);
+						}
+						if(it1.food){
+						details=details.replace('**foodpref1**',it1.food);
+						}
+							$('#foodprefb').append(details);
+							
+				 });
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+
+$('#submit').click(function(){
+	var owner=localStorage.owner;
+	var email=localStorage.email;
+	var status=$('#status').val();
+	var foodpref=$('#foodpref').val();
+	var remark=$('#remark_field').val();
+	
+var yohoAPI = urlval+"/weddingapp/savedetail/?jsoncallback=?&email="+email+"&owner="+owner+"&status="+status+"&foodpref="+foodpref+"&remark="+remark;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	 var statusval=data.items;
+	 if (statusval==1) {
+		window.location.href='#openModal1';
+	 }
+	 else{
+		alert("No changes to save");
+		window.location.href='#openModal1';
+	 }
+  })
+  .error(function() { alert("Please check your network connection"); });
+	
+});
+
+});
+</script>
+</head>
+<body>
+<!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li class="selected"><a href="redpacket.html">Check Rates</a></li>
+				<li><a href="profile.html">My Profile</a></li>
+				<li><a href="calendar.html">Settings</a></li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<img src="images/logo2.png"  />
+</div>
+
+<div id="topbar_text" style="position: relative;">
+		Wedding details
+		<span id="back_box" onclick="window.location.href='weddingdetails.html'">
+				<img src="images/back.png"  />
+		</span>
+</div>
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+<div class="profile_imgbox">
+		<div class="status_imgbox" style=" float:none;margin:auto; width:120px;">
+			<img src="images/img4.jpg" width="100%" id="profilepic"/>
+		</div>
+</div>
+<div id="calendar_contentbox">
+		<div class="calendar_box">
+				<div class="calendar_box1">
+						<span style="font-size:22px;" id="date">31 December 2014</span>
+						<br />
+						<span class="loto_bold" id="weddingname">John Doe & Maria Doe Wedding</span>
+						<br />
+						<span style="font-size:15px;" id="location">Resorts World Sentosa Equarius Hotel</span>
+						<br />
+						<span class="loto_regular" id="time">7:00 pm <span style="color:#939598;">at</span> <span class="roomname">Concourse Room</span></span>
+				</div>
+				<div class="calendar_statusbox">
+						<div class="statusbox1" style="width:100%; border-right:none; border-bottom:1px solid #D1D1D1; padding-bottom:10px;position: relative;">
+								<span style="margin-left:0px;">Status</span>
+								<span style="color:#77ab59; float:right;" id="statuscolor"><span id="statusname">Accepted</span> <img src="images/icon5.png" style="float:right; margin-left:10px; margin-top:8px;cursor: pointer;" width="8"  onclick="$('.status_b').toggle();"/>
+								<input type="hidden" id="status" value="Yes" />
+								</span>
+								
+								
+				<div class="status_b" style="width: 130px; padding: 4px; border: 1px solid rgb(222, 222, 222); float: left; top: 20px; background: none repeat scroll 0% 0% rgb(255, 255, 255); right: 5px; height: auto; position: absolute; font-size: 12px; color: rgb(0, 0, 0); z-index: 99; text-transform: capitalize; display: none;">
+							
+							<div style="width: 120px;height: 20px;" onclick="$('.squarebox').removeClass('squareactive1');$(this).addClass('squareactive1'); $('#status').val('Yes');$('#statusname').html('Accept');" class="squarebox squareactive1">
+							   Accept
+							</div>
+							<div style="width: 120px;height: 20px;" onclick="$('.squarebox').removeClass('squareactive1');$(this).addClass('squareactive1'); $('#status').val('May be');$('#statusname').html('Waiting');" class="squarebox ">
+							  Waiting
+							</div>
+							<div style="width: 120px;height: 20px;" onclick="$('.squarebox').removeClass('squareactive1');$(this).addClass('squareactive1');$('#status').val('No'); $('#statusname').html('Not Sent');" class="squarebox ">
+							   Not Sent
+							</div>
+							<div style="width: 120px;height: 20px;" onclick="$('.squarebox').removeClass('squareactive1');$(this).addClass('squareactive1');$('#status').val('Reject');$('#statusname').html('Reject'); " class="squarebox ">
+							   Reject
+							</div>
+							<div style="width: 120px;height: 20px;" onclick="$('.squarebox').removeClass('squareactive1');$(this).addClass('squareactive1'); $('#status').val('Archive');$('#statusname').html('Archive (Remove)');" class="squarebox ">
+							   Archive (Remove)
+							</div>
+				</div>
+				
+				
+				
+						</div>
+						<div class="statusbox1 details_box" style="position: relative;">
+								<span style="margin-left:0px;">Food Preference</span>
+								<span style="color:#000; float:right;"><span id="food_pref">No Food Preferences</span> <img src="images/icon5.png" style="float:right; margin-left:5px; margin-top:8px;cursor: pointer;" width="8" onclick="$('#foodprefb').toggle();"/> </span>
+								<input type="hidden" id="foodpref" />
+								
+						<div id="foodprefb" style="width: 130px; padding: 4px; border: 1px solid rgb(222, 222, 222); float: left; top: 30px; background: none repeat scroll 0% 0% rgb(255, 255, 255); right: 5px; height: auto; position: absolute; font-size: 12px; color: rgb(0, 0, 0); z-index: 99; text-transform: capitalize;display: none;"></div>
+						
+						<div style="display: none;" id="foodpref_detail">
+							<div style="width: 120px;height: 20px;" onclick="$('.squarebox').removeClass('squareactive1');$(this).addClass('squareactive1'); $('#food_pref').html('**foodpref**');$('#foodpref').val('**foodprefslno**');" class="squarebox">
+							  **foodpref1**
+							</div>
+						</div>
+						
+						
+						</div>
+						<div class="statusbox1 details_box">
+								<span style="margin-left:0px;" id="prev">Remarks</span>
+								<span style="color:#000; float:right;cursor: pointer;" id="remark" onclick="$(this).toggle();$('#prev').toggle();$('#remark_field').toggle();">No Remarks</span>
+								<input type="text" id="remark_field" placeholder="Remark" class="form2" onblur="$('#remark').toggle();$('#prev').toggle();$('#remark_field').toggle();$('#remark').html(this.value);" style="display: none;"/>
+						</div>
+						<div class="statusbox1 details_box">
+								<span style="margin-left:0px;float:left;width:20%;">Address</span>
+								<span style="float:left;width:78%; color:#000; text-align:right;line-height: 1.4;">
+										<span id="address" style="float:right; text-align:right;">12 Marina View, Asia Square<br /> Tower2, Marina Bay. Singapore<br /> 018961</span>
+								<span style="color:#e880a2; font-family: 'open_baskerville_0.0.75normal'; float:right; text-transform:uppercase;margin-right: 5px;">View MAP <span style="float:right;"><img src="images/more.png" style="width:13px;height: 13px;margin-top: 3px;margin-left: 5px;" /></span></span></span>
+						</div>
+						<div class="statusbox1 details_box">
+								<span style="margin-left:0px;">Room</span>
+								<span style="color:#77ab59; float:right; color:#000;" class="roomname">Concourse Room</span>
+						</div>
+						
+				</div>
+		</div>
+		<div class="bottom_line" style="margin-bottom:5px;"></div>
+		
+		<div style="width:80%; float:left; text-align:center;margin-bottom:15px; margin-left:5%;font-family: 'latoregular'; color:#939598; ">
+		<span class="button" id="submit" style="float:left;cursor: pointer;">SUBMIT</span>
+		<span style="float:left; margin-left:15px; margin-top:18px;">or</span>
+		<span style=" float:left; margin-left:20px; margin-top:18px;cursor: pointer;" onclick="window.location.href='weddingdetails.html'"> CANCEL</span></div>	
+</div>
+
+<div id="openModal1" class="modalbg">
+ 		<div class="dialog" style="height:140px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">
+						Congratulations</h3>
+						<table class="table">
+								<tr>
+										<td align="center">
+												<span class="text2" style="text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:14px;">You have been successfully submit your
+details information.
+												
+										</td>
+								</tr>
+								
+								
+								
+								<tr>
+										<td align="center">
+											
+											<input type="button" value="CLOSE" class="button" style="width:98%; float:left; margin-left:0%;" onclick="window.location.href='checkin.html'"/>
+											
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+	
+</body>
+</html>

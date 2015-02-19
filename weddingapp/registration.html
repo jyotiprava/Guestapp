@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+ <link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+
+<script type="text/javascript" src="js/urlval.js"></script>
+<script type="text/javascript">
+var vall="";
+$(function(){
+		var availableTags = [
+      "No Preferences",
+      "Halal",
+      "Vegetarian",
+      "Baby Food"];
+		
+		$( "#foodpref" ).autocomplete({
+		source: availableTags
+		});
+		
+		
+		$("#submit1").click(function(){
+		
+		var password=$('#password').val();
+		var cpwd=$('#cpwd').val();
+		if (cpwd!=password) {
+			alert("Password must be same");
+			$('#cpwd').val('');
+			return false;
+		}
+		
+		var checkid=$('#checkid').val();
+		if (checkid==0) {
+			alert("Please accept our terms and conditions");
+			return false;
+		}
+		
+		var email=$('#email').val();
+		var name=$('#name').val();
+		$(".table").find(".form").each(function(){
+		vall=vall+'&'+$(this).attr('id')+'='+$(this).val();
+		});
+		
+		  var yohoAPI = urlval+"/weddingapp/guestsignin/?jsoncallback=?"+vall;
+		  $.getJSON( yohoAPI, {
+		    format: "json"
+		  })
+		  .done(function( data ) {
+		     var statusval=data.items;
+			 if(statusval==1)
+			 {
+			localStorage.email=email;
+			localStorage.name=name;
+			window.location.href='#openModal1';
+			 }
+			 else
+			 {
+			  document.location.href="signin.html";
+			 }
+			 
+		    $(".table").find(".form").each(function(){
+				$(this).val('');
+				});
+		  })
+		  .error(function() { alert("Please check your network connection"); });
+		});
+});
+</script>
+
+</head>
+<body>
+
+<div id="topbar_text">
+		REGISTRATION FORM
+		<div id="back_box">
+				<img src="images/back.png"  />
+		</div>
+</div>
+
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+
+<div id="signin_box">
+		<table class="table">
+				<tr>
+						<td>
+								<span class="form_head" style="color:#967c52;">REGISTRATION DETAIL</span>
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="text" id="fname"  placeholder="Full Name" class="form" onblur="return checkFirstname();" />
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="text" id="email"  placeholder="Email Address" class="form" onblur="return checkEmail();"/>
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="password" id="password"  placeholder="Password" class="form" onblur="return checkPassword();"/>
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="password" id="cpwd" placeholder="Confirm password" class="form form_border" />
+								
+						</td>
+				</tr>
+		</table>
+		
+		<table class="table" style="margin-top:15px;">
+				<tr>
+						<td>
+								<span class="form_head" style="color:#e6852e;">Personal Detail</span>
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="text" id="phone"  placeholder="Phone No." class="form" onblur="return phonenumber();"/>
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="text" id="foodpref" placeholder="Food preference" class="form" />
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<input type="text" id="culture" placeholder="Culture" class="form form_border" />
+								
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<div style=" width:90%; float:left; margin-left:5%; margin-top:15px;">
+										<span style=" width:5%; float:left;">
+												<input type="hidden" id="checkid" value="0"/>
+												<img src="images/check.png" width="20" style="margin-top: -20%;" class="check" onclick="$('.check').toggle();$('#checkid').val(1);"/>
+												<img src="images/check2.png" width="20" style="margin-top: -20%;display: none;" class="check" onclick="$('.check').toggle();$('#checkid').val(0);"/>
+										</span>
+										<span style=" width:87%;float:left; margin-left:20px;" class="text2">
+												I have read, accept the <span><a href="#"  style="color:#e880a2; text-decoration:underline;">terms and
+												conditions</a></span> and consent to receiving
+												emails from Wedding Penguin.
+										</span>
+								</div>
+						</td>
+				</tr>
+				<tr>
+						<td>
+								<div style=" width:90%; float:left; margin-left:5%; margin-top:15px; margin-bottom:15px;">
+										<a href="#openModal1" style="text-decoration: none; color:#616161;"></a>
+										<input type="button" id="submit1" value="SUBMIT" class="button" style=" float:left; width:150px; " />
+										
+										<a href="signin.html" style="text-decoration: none; color:#616161;"><span style=" float:left; margin-left:10px; margin-top:16px; font-family: 'latoregular'; color:#939598; font-size:18px;cursor: pointer;">or CANCEL</span></a>
+								</div>
+						</td>
+				</tr>
+		</table>
+</div>
+
+
+
+			
+<div id="openModal1" class="modalbg">
+ 		<div class="dialog" style="height:240px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close" onclick="window.location.href='profile.html'">x</a>
+  						<h3 style="font-family: 'open_baskerville_0.0.75normal'; text-align:center; color:#939598; margin-bottom:8px; text-transform:uppercase; letter-spacing:2px; font-size:20px;">Email validation</h3>
+						<table class="table">
+								<tr>
+										<td>
+												<span class="text2" style="text-decoration:none;">Thank you for your registration. We have sent you a confirmation letter to your email. Follow the instruction and this new email address will be verified.<br /><br />If you haven’t received the email, click <span style="color:#e880a2;">here</span> and we will re-sent you.
+</span>
+										</td>
+								</tr>
+								
+								
+								
+								<tr>
+										<td align="center">
+											<input type="button" name="" value="CLOSE" class="button" style="width:98%; float:left; margin-left:0%;" onclick="window.location.href='profile.html'"/>
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+
+
+	
+</body>
+</html>

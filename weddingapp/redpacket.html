@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+<script type="application/javascript">
+$(function(){
+var yohoAPI = urlval+"/weddingapp/redpacket/?jsoncallback=?";
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+				 $.each( it, function( i1, it1 ) {
+						
+				  var details=$('#restaurant').html();
+
+						if(it1.name){
+						details=details.replace('**hotel**',it1.name);
+						}
+						if(it1.image){
+						details=details.replace('**image**',it1.image);
+						}
+						
+						if(it1.lunch_basic_weekday)
+							{
+						details=details.replace('**mflnchbasic**',it1.lunch_basic_weekday);
+							}
+							if(it1.lunch_basic_weekend)
+							{
+						details=details.replace('**sslnchbasic**',it1.lunch_basic_weekend);
+							}
+							if(it1.lunch_basic_holiday)
+							{
+						details=details.replace('**pulnchbasic**',it1.lunch_basic_holiday);
+							}
+							
+							
+							if(it1.lunch_premium_weekday)
+							{
+						details=details.replace('**mflnchprem**',it1.lunch_premium_weekday);
+							}
+							if(it1.lunch_premium_weekend)
+							{
+						details=details.replace('**sslnchprem**',it1.lunch_premium_weekend);
+							}
+							if(it1.lunch_premium_holiday)
+							{
+						details=details.replace('**pulnchprem**',it1.lunch_premium_holiday);
+							}
+							
+							
+							if(it1.dinner_basic_weekday)
+							{
+						details=details.replace('**mfdinrbasic**',it1.dinner_basic_weekday);
+							}
+							if(it1.dinner_basic_weekend)
+							{
+						details=details.replace('**ssdinrbasic**',it1.dinner_basic_weekend);
+							}
+							if(it1.dinner_basic_holiday)
+							{
+						details=details.replace('**pudinrbasic**',it1.dinner_basic_holiday);
+							}
+							
+							if(it1.dinner_premium_weekday)
+							{
+						details=details.replace('**mfdinrprem**',it1.dinner_premium_weekday);
+							}
+							if(it1.dinner_premium_weekend)
+							{
+						details=details.replace('**ssdinrprem**',it1.dinner_premium_weekend);
+							}
+							if(it1.dinner_premium_holiday)
+							{
+						details=details.replace('**pudinrprem**',it1.dinner_premium_holiday);
+							}
+							
+							$('#restaurant_detail').append(details);
+							
+				 });
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+});
+</script>
+</head>
+<body>
+<!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li class="selected"><a href="redpacket.html">Check Rates</a></li>
+				<li><a href="profile.html">My Profile</a></li>
+				<li><a href="calendar.html">Settings</a></li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<img src="images/logo2.png"  />
+</div>
+
+<div id="topbar_text" style="position: relative;">
+		Red Packet
+		<span id="back_box">
+				<img src="images/back.png"  />
+		</span>
+		<span id="done">
+				<img src="images/search.png" width="25"  />
+		</span>
+</div>
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+
+<div id="restaurant_detail">
+		
+</div>
+<div id="restaurant" style="display: none;">
+<div id="signin_box">
+		<table class="table">
+				<tr>
+						<td>
+								<span class="form_head" style="color:#967c52; text-transform:capitalize; width:90%; float:left; line-height:1.3; color:#000;">
+								**hotel**
+								</span>
+								<br />
+								<span class="button" style="font-size: 16px;background:none; color:#e880a2; padding:0px; margin-left:5%;">MORE</span>
+								<span><img src="images/more.png" style="width:13px;height: 13px;" /></span>
+						</td>
+				</tr>
+		</table>
+</div>
+<div style="width:100%; height:auto; float:left; border-top:1px solid #c5c5c5; border-bottom:1px solid #c5c5c5; padding-top:10px; padding-bottom:10px;">
+		<table class="table table3" style="width:90%; margin-left:5%;  font-family: 'latoregular'; font-size:14px; line-height:1.8; text-align:center;">
+				<tr>
+						<td align="left">
+								<img src="**image**" width="55" />
+						</td>
+						<td>
+								<span class="td_text">WEEKDAY</span>
+								<br />
+								(Mon)-Fri
+						</td>
+						<td>
+								<span class="td_text">WEEKDAY</span>
+								<br />
+								(Sat)-Sun
+						</td>
+						<td>
+								<span class="td_text">Public<br />HOliday</span>
+						</td>
+				</tr>
+				
+				<tr>
+						<td align="left">
+								<span class="td_text">LUNCH</span>
+								<br />
+								Basic
+						</td>
+						<td>
+								$ **mflnchbasic**
+						</td>
+						<td>
+								$ **sslnchbasic**
+						</td>
+						<td>
+								$ **pulnchbasic**
+						</td>
+				</tr>
+				<tr>
+						<td align="left">
+								<span class="td_text">LUNCH</span>
+								<br />
+								Premium
+						</td>
+						<td>
+								$ **mflnchprem**
+						</td>
+						<td>
+								$ **sslnchprem**
+						</td>
+						<td>
+								$ **pulnchprem**
+						</td>
+				</tr>
+				<tr>
+						<td align="left">
+								<span class="td_text">DINNER</span>
+								<br />
+								Basic
+						</td>
+						<td>
+								$ **mfdinrbasic**
+						</td>
+						<td>
+								$ **ssdinrbasic**
+						</td>
+						<td>
+								$ **pudinrbasic**
+						</td>
+				</tr>
+				
+				<tr>
+						<td align="left">
+								<span class="td_text">DINNER</span>
+								<br />
+								Premium
+						</td>
+						<td>
+								$ **mfdinrprem**
+						</td>
+						<td>
+								$ **ssdinrprem**
+						</td>
+						<td>
+								$ **pudinrprem**
+						</td>
+				</tr>
+				
+		</table>
+</div>
+</div>
+
+</body>
+</html>

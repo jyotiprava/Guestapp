@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+        
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+
+<script type="application/javascript">
+$(function(){
+	var email=localStorage.email;
+	var cal='upcoming';
+var yohoAPI = urlval+"/weddingapp/allevent/?jsoncallback=?&email="+email+"&cal="+cal;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+				 $.each( it, function( i1, it1 ) {
+						
+				  var details=$('#event_detail').html();
+
+						if(it1.date){
+						details=details.replace('**date**',it1.date);
+						}
+						if(it1.location){
+						details=details.replace('**location**',it1.location);
+						}
+						if(it1.weddingname){
+						details=details.replace('**weddingname**',it1.weddingname);
+						}
+						if(it1.time){
+						details=details.replace('**time**',it1.time);
+						}
+						if(it1.roomname){
+						details=details.replace('**roomname**',it1.roomname);
+						}
+						if(it1.statusimg){
+						details=details.replace('**statusimg**',it1.statusimg);
+						}
+						if(it1.colour){
+						details=details.replace('**colour**',it1.colour);
+						}
+						if(it1.statusname){
+						details=details.replace('**statusname**',it1.statusname);
+						}
+						if(it1.coupleimg){
+						details=details.replace('**coupleimg**',it1.coupleimg);
+						}
+						if(it1.user_id){
+						details=details.replace('**user_id**',it1.user_id);
+						}
+							$('#allevent').append(details);
+							
+				 });
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+});
+
+function eventdetail(owner) {
+	localStorage.owner=owner;
+	window.location.href='weddingdetails.html';
+}
+</script>
+</head>
+<body>
+ <!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li class="selected"><a href="redpacket.html">Check Rates</a></li>
+				<li><a href="profile.html">My Profile</a></li>
+				<li><a href="calendar.html">Settings</a></li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<img src="images/logo2.png"  />
+</div>
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+
+<div class="head1">
+		Calendar
+</div>
+
+<div style="width:100%; height:auto; float:left; border-top:1px solid #c9c9c9; border-bottom:1px solid #c9c9c9;  margin-bottom:15px;">
+		<span class="tab1 tabs" style="display: none;" onclick="$('.tabs').toggle();$('.tab').toggle(); return getevent('upcoming');">
+		Upcoming <img src="images/plus.png" style="float:right; margin-right:10px; margin-top:5px;" width="15"  />
+		</span>
+		<span class="tab2 tabs" onclick="$('.tabs').toggle();$('.tab').toggle();">
+		Upcoming <img src="images/plus2.png" style="float:right; margin-right:10px; margin-top:5px;" width="15"  />
+		</span>
+		
+		<span class="tab2 tab" style="display: none;" onclick="$('.tab').toggle();$('.tabs').toggle();">
+		Previous
+				<img src="images/icon10.png" style="float:right; margin-right:10px; margin-top:11px;" width="15"  />
+		</span>
+		<span class="tab1 tab" onclick="$('.tab').toggle();$('.tabs').toggle(); return getevent('prev');">
+		Previous
+				<img src="images/icon11.png"  style="float:right; margin-right:10px; margin-top:11px;" width="15"  />
+		</span>
+</div>
+
+<div id="calendar_contentbox">
+		<div id="allevent">
+			
+		</div>
+		
+		<div id="event_detail" style="display: none;">
+		<div class="calendar_box">
+				<div class="calendar_box1">
+						<div class="status_imgbox">
+								<img src="**coupleimg**" width="100%" />
+						</div>
+						<div class="status_imgtext">
+								<span style="font-size:22px;">**date**</span>
+								<br />
+								<span class="loto_bold">**weddingname** Wedding</span>
+						</div>
+						<div style="width:100%; height:auto; float:left; margin-top:10px;">
+								<span style="font-size:15px;">**location**</span>
+								<br />
+								<span class="loto_regular">**time** <span style="color:#939598;">at</span> **roomname**</span>
+						</div>
+				</div>
+				<div class="calendar_statusbox">
+						<div class="statusbox1" style="border-right:none; width:100%;">
+								<span style="margin-left:0px;">Status</span>
+								<span><img src="**statusimg**"  width="20"/> </span>
+								<span style="color:**colour**;">**statusname**</span>
+								<span style="float:right;cursor: pointer;" onclick="return eventdetail('**user_id**');"><img src="images/icon4.png" width="12" /></span>
+						</div>
+				</div>
+		</div>
+		<div class="bottom_line"></div>
+		</div>
+		
+		
+</div>
+	
+</body>
+</html>

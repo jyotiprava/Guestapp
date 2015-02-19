@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+
+	<link rel="stylesheet" href="css/lightbox.css">
+	<script src="js/lightbox.js"></script>
+
+<script type="application/javascript">
+$(function(){
+	var owner=localStorage.owner;
+	var email=localStorage.email;
+	
+var yohoAPI = urlval+"/weddingapp/eventdetail/?jsoncallback=?&owner="+owner+"&email="+email;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+		$('#date').html(it.date);
+		$('#weddingname').html(it.weddingname+' Wedding');
+		$('#wedding').html(it.weddingname+' Wedding');
+		$('#location').html(it.location);		
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+  
+var yohoAPI = urlval+"/weddingapp/allphoto/?jsoncallback=?";
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+				 $.each( it, function( i1, it1 ) {
+						
+				  var details=$('#restaurant').html();
+
+						if(it1.name){
+						details=details.replace('**hotel**',it1.name);
+						}
+						if(it1.image){
+						details=details.replace('**image**',it1.image);
+						}
+							$('#restaurant_detail').append(details);
+							
+				 });
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+  
+});
+</script>
+
+</head>
+<body>
+ <!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="redpacket.html">Check Rates</a></li>
+				<li><a href="profile.html">My Profile</a></li>
+				<li class="selected"><a href="calendar.html">Settings</a></li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<span style="width:100%; height:auto; float:left;"><img src="images/logo2.png"  /></span>
+</div>
+
+<div id="topbar_text" style="position: relative; line-height:0.2;">
+		Mobile upload
+				<span style="color:#967c52; font-family: 'latobold'; width:100%; float:left; margin-top:10px; text-align:center; font-size:14px; text-transform:uppercase;" id="wedding">LUKE & Charlotte wedding</span>	
+		<span id="back_box">
+				<img src="images/back.png"  />
+		</span>
+		<span id="done">done</span>
+</div>
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+
+<div id="calendar_contentbox" style="margin-top:15px;">
+		<div class="calendar_box">
+				<div class="calendar_box1" style="border-bottom:none;">
+						<span style="font-size:22px;" id="date">31 December 2014</span>
+						<br />
+						<span style="font-size:15px;" id="location">Resorts World Sentosa Equarius Hotel</span>
+						<br />
+						<span class="loto_bold" id="weddingname">John Doe & Maria Doe Wedding</span>
+						<br />
+						<span class="button" style="width:89%; float:left; text-align:center;">Add More Photos</span>
+				</div>
+				
+		</div>
+		<div class="bottom_line" style="margin-bottom:5px;"></div>
+		
+</div>
+
+<div style="width:90%; height:auto; float:left; margin-left:5%;margin-bottom: 5%;">
+		<p class="text3" style="text-align:center;">Photos from you and others</p>
+		<div id="allphoto"></div>
+		<div id="photobox" style="display: none;">
+			<div class="mobilephpto_box">
+					<div class="mobile_imgbox1">
+							<a class="example-image-link" href="**fuulimage**" data-lightbox="example-set" data-title="Uploded by : **uploadby**">
+							<img src="**image**" style="width: 100%;"/>
+							</a>
+					</div>
+			</div>
+		</div>
+</div>
+
+	
+</body>
+</html>

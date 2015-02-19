@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+<script>
+$(document).ready(function(){
+    $(".slide1").click(function(){
+        $(".box1").slideToggle();
+    });
+	 $(".slide2").click(function(){
+        $(".box2").slideToggle();
+    });
+	 
+	 
+	 
+
+	var owner=localStorage.owner;
+	var email=localStorage.email;
+	
+var yohoAPI = urlval+"/weddingapp/eventdetail/?jsoncallback=?&owner="+owner+"&email="+email;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+		$('#date').html(it.date);
+		$('#weddingname').html(it.weddingname+' Wedding');
+		$('#location').html(it.location);
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+  
+  var yohoAPI = urlval+"/weddingapp/getamount/?jsoncallback=?&email="+email+"&owner="+owner;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	 var redpacket=data.items[0].item;
+	  var parking=data.items[0].name;
+	 if (redpacket!='') {
+		$('#insert_amount').html(redpacket);
+		$('#redpacket').find('.checkin_box2').remove();
+		$('#redpacket').html('<div class="checkin_box4"><table style="width:100%; height:100%;"><tr><td valign="middle"><img src="images/icon16.png"  /><br /><br /><span class="span1">REQUEST</span><br /><span>Red packet</span></td></tr></table></div>');
+	 }
+	 if (parking==1) {
+		$('#parking').find('.checkin_box2').remove();
+		$('#parking').html('<div class="checkin_box4"><table style="width:100%; height:100%;"><tr><td valign="middle"><img src="images/icon9.png"  /><br /><br /><span class="span1">REQUEST</span><br /><span>Parking <br />Coupon</span></td></tr></table></div>');
+	 }
+	 
+	 
+	 
+  })
+  .error(function() { alert("Please check your network connection"); });
+	 
+
+$('#insert').click(function(){
+var owner=localStorage.owner;
+var email=localStorage.email;
+var amount=$('#amount').val();
+var yohoAPI = urlval+"/weddingapp/insertred/?jsoncallback=?&email="+email+"&amount="+amount+"&owner="+owner;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	var statusval=data.items;
+	 if (statusval==1) {
+		alert("Amount inserted successfully");
+		$('#insert_amount').html(amount);
+		window.location.href="#close";
+		$('#redpacket').find('.checkin_box3').remove();
+		$('#redpacket').html('<div class="checkin_box4"><table style="width:100%; height:100%;"><tr><td valign="middle"><img src="images/icon16.png"  /><br /><br /><span class="span1">REQUEST</span><br /><span>Red packet</span></td></tr></table></div>');
+	 }
+	 else
+	 {
+		alert("Please try again");
+		window.location.href="#close";
+	 }
+  })
+  .error(function() { alert("Please check your network connection"); });
+});
+
+$('#add_request').click(function(){
+var owner=localStorage.owner;
+var email=localStorage.email;
+var request=$('#request').val();
+
+var yohoAPI = urlval+"/weddingapp/insertreq/?jsoncallback=?&email="+email+"&request="+request+"&owner="+owner;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	var statusval=data.items;
+	 if (statusval==1) {
+		window.location.href="#close";
+		window.location.href='#openModal2';
+	 }
+	 else
+	 {
+		alert("Please try again");
+		window.location.href="#close";
+	 }
+  })
+  .error(function() { alert("Please check your network connection"); });
+
+});
+
+
+	 
+});
+
+function callpink()
+{
+	$('#redpacket').find('.checkin_box2').remove();
+	$('#redpacket').html('<div class="checkin_box3"><table style="width:100%; height:100%;"><tr><td valign="middle"><img src="images/icon16.png"  /><br /><br /><span class="span1">REQUEST</span><br /><span>Red packet</span></td></tr></table></div>');
+}
+function callparking()
+{
+	$('#parking').find('.checkin_box2').remove();
+	$('#parking').html('<div class="checkin_box3"><table style="width:100%; height:100%;"><tr><td valign="middle"><img src="images/icon9.png"  /><br /><br /><span class="span1">REQUEST</span><br /><span>Parking <br />Coupon</span></td></tr></table></div>');
+	
+var owner=localStorage.owner;
+var email=localStorage.email;
+
+var yohoAPI = urlval+"/weddingapp/applyparking/?jsoncallback=?&email="+email+"&owner="+owner;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	var statusval=data.items;
+	 if (statusval==1) {
+		$('#parking').find('.checkin_box3').remove();
+		$('#parking').html('<div class="checkin_box4"><table style="width:100%; height:100%;"><tr><td valign="middle"><img src="images/icon9.png"  /><br /><br /><span class="span1">REQUEST</span><br /><span>Parking <br />Coupon</span></td></tr></table></div>');
+		window.location.href='#openModal2';
+	 }
+	 else
+	 {
+		alert("Please try again");
+	 }
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+	
+}
+</script>
+</head>
+<body>
+ <!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="redpacket.html">Check Rates</a></li>
+				<li><a href="profile.html">My Profile</a></li>
+				<li class="selected"><a href="calendar.html">Settings</a></li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<img src="images/logo2.png"  />
+</div>
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+
+<div class="head1">
+		Currently check in
+</div>
+
+<div id="calendar_contentbox">
+		<div class="calendar_box">
+				<div class="calendar_box1">
+						<span style="font-size:22px;" id="date">31 December 2014</span>
+						<br />
+						<span style="font-size:15px;" id="location">Resorts World Sentosa Equarius Hotel</span>
+						<br />
+						<span class="loto_bold" id="weddingname">John Doe & Maria Doe Wedding</span>
+				</div>
+				<div class="calendar_statusbox">
+						<div class="statusbox1 details_box" style="padding-top:0px;">
+								<span style="margin-left:0px;">Red Packet</span>
+								<span id="insert_amount" style="float:right; color:#e880a2; font-family: 'open_baskerville_0.0.75normal'; text-transform:uppercase;">
+								<a href="#openModal1" style="color:#e880a2;">
+								<span>INSERT AMOUNT ››</span>
+								</a>
+								</span>
+						</div>
+				</div>
+		</div>
+		<div class="bottom_line"></div>
+</div>
+
+<div class="checkin_head slide1">
+		<span style=" float:left;">REQUEST HELP FROM  BROTHERS & SISTERS</span> 
+		<span style="float:right; margin-left:5px; margin-top:2px;"><img src="images/icon6.png" width="17" /></span>
+</div>
+
+<div class="checkin_contentbox box1">
+		<span class="text2">Please refrain from tapping each icon more than once.</span>
+		<div style="width:100%; height:auto; float:left; margin-top:15px;">
+				<div class="checkin_box1" id="parking">
+						<div class="checkin_box2" onclick="callparking();">
+								<table style="width:100%; height:100%;">
+										<tr>
+												<td valign="middle">
+														<img src="images/icon8.png"  />
+														<br /><br />
+														<span class="span1">REQUEST</span>
+														<br />
+														<span>Parking<br />Coupon</span>
+												</td>
+										</tr>
+										
+								</table>
+						</div>
+						<div class="bottom_line2"></div>
+				</div>
+				
+				<div class="checkin_box1" id="redpacket">
+						<a href="#openModal1"><div class="checkin_box2" onclick="callpink();">
+								<table style="width:100%; height:100%;">
+										<tr>
+												<td valign="middle">
+														<img src="images/icon7.png"  />
+														<br /><br />
+														<span class="span1">REQUEST</span>
+														<br />
+														<span>Red packet</span>
+												</td>
+										</tr>
+										
+								</table>
+						</div></a>
+						<div class="bottom_line2"></div>
+				</div>
+				
+				<div class="checkin_box1">
+						<a href="#openModal"><div class="checkin_box2" style="vertical-align:middle;">
+								<table style="width:100%; height:100%;">
+										<tr>
+												<td valign="middle">
+														<span class="span1">REQUEST</span>
+														<br />
+														<span>Others</span>
+												</td>
+										</tr>
+										
+								</table>
+						</div></a>
+						<div class="bottom_line2"></div>
+				</div>
+				
+		</div>
+</div>
+
+<div class="checkin_head slide2">
+		<span style=" float:left;">Submit Photos</span> 
+		<span style="float:right; margin-left:5px; margin-top:2px;">
+		<img src="images/icon6.png" width="17" />
+		</span>
+</div>
+
+<div class="box2" style="width:100%; height:auto; float:left; margin-top:10px;display: none;">
+		<div style="width:90%; height:auto; float:left; margin-left:5%; font-size:15px;">
+				<span style="color:#000;">8</span>
+				<span class="text2" style="color:#939598;">photos Added</span>
+				<span  style="float:right; font-family: 'open_baskerville_0.0.75normal'; color:#e880a2; text-transform:uppercase;cursor: pointer;" onclick="window.location.href='photo.html'">View ››</span>
+		</div>
+		<div style="width:100%; height:auto; float:left;">
+						<div class="button" style="width:80%; margin-left:5%; text-align:center;" onclick="window.location.href='mobileupload.html'">Add Photos</div>
+		</div>
+</div>
+
+<div style="width:100%; height:auto; float:left; margin-bottom:0px;">
+
+		<a href="#openModal3" style="color:#616161;">
+				<div class="button" style="width:100%; text-align:center; padding:12px 0px;">Exit Event</div>
+		</a>
+</div>
+<!----------------------------------------Request other pop up----------------------->
+<div id="openModal" class="modalbg">
+ 		<div class="dialog" style="height:180px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">Request Others</h3>
+						<table class="table">
+								<tr>
+										<td>
+											<input type="text" id="request" class="form2" />
+											
+										</td>
+								</tr>
+								<tr>
+										<td>&nbsp;</td>
+								</tr>
+								<tr>
+										<td align="center" style="color:#939598; margin-top:10px; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											<input type="button" id="add_request" value="Add" class="button" style="width:50%; float:left; margin-left:0%;" />
+											<span style="float:left; margin-left:20px; margin-top:20px;">or</span> <a href="#close" style="text-decoration: none;color:#939598;"><span style="float:left; margin-top:20px; margin-left:15px;">CANCEL</span></a>
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+<!----------------------------------------Request other pop up end----------------------->
+
+<!----------------------------------------Insert amount pop up----------------------->
+<div id="openModal1" class="modalbg">
+ 		<div class="dialog" style="height:180px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">Insert amount</h3>
+						<table class="table">
+								<tr>
+										<td>
+											<input type="hidden" value=""/>
+											<input type="text" id="amount" value="$" class="form2" />
+											
+										</td>
+								</tr>
+								<tr>
+										<td style="font-family:Arial, Helvetica, sans-serif; color:#616161; font-style:italic; line-height:1.2; font-size:13px;">Please take a note that you can’t edit the amount later part.</td>
+								</tr>
+								<tr>
+										<td align="center" style="color:#939598; margin-top:10px; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											<input type="button" id="insert" value="Add" class="button" style="width:50%; float:left; margin-left:0%;" />
+											<span style="float:left; margin-left:20px; margin-top:20px;">or</span> <a href="#close" style="text-decoration: none;color:#939598;"><span style="float:left; margin-top:20px; margin-left:15px;">CANCEL</span></a>
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+<!----------------------------------------Insert amount pop up end----------------------->
+
+
+<!----------------------------------------Thank you pop up----------------------->
+<div id="openModal2" class="modalbg">
+ 		<div class="dialog" style="height:125px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">Thank you</h3>
+						<table class="table">
+								<tr>
+										<td style="font-family:'latoregular'; color:#000; text-align:center; font-size:14px;">
+												A helper will get back to you soon.
+												
+										</td>
+								</tr>
+								
+								<tr>
+										<td align="center" style="color:#939598; margin-top:10px; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											<a href="#close"><input type="button" name="" value="Close" class="button" style="width:100%; float:left; margin-left:0%;" /></a>
+										
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+<!----------------------------------------Thank you pop up emd----------------------->
+
+
+<!----------------------------------------EXIT EVENT pop up ----------------------->
+<div id="openModal3" class="modalbg">
+ 		<div class="dialog" style="height:125px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">EXIT EVENT</h3>
+						<table class="table">
+								<tr>
+										<td style="font-family:'latoregular'; color:#000; text-align:center; font-size:14px;">
+												Are you sure you want to exit?
+												
+										</td>
+								</tr>
+								
+								<tr>
+										<td align="center" style="color:#939598; margin-top:10px; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											<input type="button" value="Close" class="button" style="width:100%; float:left; margin-left:0%;" onclick="window.location.href='calendar.html'"/>
+										
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+<!----------------------------------------EXIT EVENT pop up end ----------------------->
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+
+
+<script type="text/javascript">
+	 $(document).ready(function() {
+                            var val=localStorage.email;
+                            
+                          var flickerAPI = urlval+"/weddingapp/guestdetail/?jsoncallback=?&email="+val;
+                                $.getJSON( flickerAPI, {
+                                  format: "json"
+                                }).done(function( data ) {
+                                  $.each( data.items, function( i, it ) {
+					 $.each( it, function( i1, it1 ) {	
+                                              $('#name').html(it1.name);
+                                              $('#phone').html(it1.phone);
+                                              $('#food_pref').html(it1.food_pref);
+                                              $('#culture').html(it1.culture);
+					      
+					      $('#edit_name').val(it1.name);
+					      $('#edit_phone').val(it1.phone);
+                                              });
+				  });
+                                })
+				.error(function() { alert("Please check your network connection"); });
+				
+				
+		$("#savename").click(function(){
+			var name=$('#edit_name').val();
+			var email=localStorage.email;
+			var flickerAPI = urlval+"/weddingapp/editname/?jsoncallback=?&name="+name+"&email="+email;
+                                $.getJSON( flickerAPI, {
+                                  format: "json"
+                                }).done(function( data ) {
+					 var statusval=data.items;
+						if(statusval==1)
+						{
+						    alert("Name Edited Successfully");
+						     $('#name').html(name);
+						      window.location.href = '#close';
+						}
+						else
+						{
+						     alert("No changes to save");
+						      window.location.href = '#close';
+						}
+				})
+				.error(function() { alert("Please check your network connection"); });
+		});
+		
+		
+		$("#saveemail").click(function(){
+			var cpwd=$('#cpwd').val();
+			var password=$('#password').val();
+			var rpwd=$('#rpwd').val();
+			
+			if (cpwd=='') {
+				alert("Please fillup current password");
+				return false;
+			}
+			
+			if (rpwd!=password) {
+				alert("Password must be same");
+				$('#rpwd').val('');
+				return false;
+			}
+			
+			var email=localStorage.email;
+			var flickerAPI = urlval+"/weddingapp/editpwd/?jsoncallback=?&cpwd="+cpwd+"&email="+email+"&password="+password;
+                                $.getJSON( flickerAPI, {
+                                  format: "json"
+                                }).done(function( data ) {
+					 var statusval=data.items;
+						if(statusval==1)
+						{
+						    alert("Password Edited Successfully");
+						      window.location.href = '#close';
+						      $('#cpwd').val('');
+						      $('#password').val('');
+						      $('#rpwd').val('');
+						      
+						}
+						else if(statusval==5)
+						{
+							alert("Current password is in correct");
+							 window.location.href = '#close';
+								$('#cpwd').val('');
+								$('#password').val('');
+								$('#rpwd').val('');
+						}
+						else
+						{
+						     alert("No changes to edit");
+						      window.location.href = '#close';
+						      $('#cpwd').val('');
+						      $('#password').val('');
+						      $('#rpwd').val('');
+						}
+				})
+				.error(function() { alert("Please check your network connection"); });
+		});
+		
+		$('#edit-phone').click(function(){
+		        var edit_phone=$('#edit_phone').val();
+			var email=localStorage.email;
+			var flickerAPI = urlval+"/weddingapp/editphone/?jsoncallback=?&edit_phone="+edit_phone+"&email="+email;
+                                $.getJSON( flickerAPI, {
+                                  format: "json"
+                                }).done(function( data ) {
+					 var statusval=data.items;
+						if(statusval==1)
+						{
+						    alert("Phone Edited Successfully");
+						     $('#phone').html(edit_phone);
+						      window.location.href = '#close';
+						}
+						else
+						{
+						     alert("No changes to save");
+						      window.location.href = '#close';
+						}
+				})
+				.error(function() { alert("Please check your network connection"); });
+				
+		});
+		
+		
+                });
+	 
+</script>
+</head>
+<body>
+<!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="redpacket.html">Check Rates</a></li>
+				<li class="selected"><a href="profile.html">My Profile</a></li>
+				<li><a href="calendar.html">Settings</a></li>
+		
+				<li style="width:100%; margin-top:260px; border:none;">
+					<span style="width:70px; height:auto; float:left; font-family: 'latobold'; color:#dd726b;">LOGOUT</span>
+					<span style="width:70px; height:auto; float:right; font-family: 'latoregular'; text-transform:capitalize;"><a href="#" style="color:#959499;">Contact Us</a></span>
+				</li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<img src="images/logo2.png"  />
+</div>
+<div id="topbar_text" style="position: relative;">
+		my profile 
+		<span id="back_box">
+				<img src="images/back.png"  style="margin-top: 5%;"/>
+		</span>
+		<span id="done">done</span>
+</div>
+		<div id="border_bar">
+				<img src="images/border.jpg"  style="width:100%;"/>
+		</div>
+		<div id="signin_box">
+				<a href="#openModal1" style="color:#616161;">
+						<div class="profile_box1">
+								Name <span class="right_text" id="name">John Doe</span>
+						</div>
+				</a>
+				
+				<a href="#openModal2" style="color:#616161;">
+						<div class="profile_box1 border_bottom">
+								Password  <span class="right_text">********</span>
+						</div>
+				</a>
+				
+				<div class="form_head" style="color:#dc7874; margin-top:15px; margin-bottom:5px; float:left;">
+						Personal Detail
+				</div>
+				
+				<a href="#openModal3" style="color:#616161;">
+				<div class="profile_box1">
+						Phone No. <span class="right_text" id="phone">9450 5887</span>
+				</div>
+				</a>
+				
+				
+				<div class="profile_box1">
+						Food preference <span class="right_text" id="food_pref">No Food Preference</span>
+				</div>
+				<div class="profile_box1 border_bottom">
+						Culture <span class="right_text" id="culture">N/A</span>
+				</div>
+		
+</div>
+
+
+
+			
+<div id="openModal1" class="modalbg">
+ 		<div class="dialog" style="height:150px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">EDIT NAME</h3>
+						<table class="table">
+								<tr>
+										<td>
+												<input type="text"  placeholder="Name" class="form2" id="edit_name"/>
+												
+										</td>
+								</tr>
+								
+								<tr>
+										<td align="center" style="color:#939598; margin-top:10px; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											
+											<input type="button" value="Save" class="button" style="width:50%; float:left; margin-left:0%;" id="savename"/>
+											
+											<span style="float:left; margin-left:20px; margin-top:20px;">or</span> <a href="#close" style="float:left; margin-top:20px; margin-left:15px;cursor: pointer;text-decoration: none;color: #939598;" >CANCEL</a>
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+
+
+<div id="openModal2" class="modalbg" >
+ 			<div class="dialog" style="height:270px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">Change password</h3>
+						<table class="table" style="height:230px;">
+								<tr>
+										<td>
+												<input type="password" id="cpwd" placeholder="Current Password" class="form2" />
+												
+										</td>
+								</tr>
+								<tr>
+										<td>
+												<input type="password" id="password" placeholder="New Password" class="form2" onblur="return checkPassword();"/>
+												
+										</td>
+								</tr>
+								<tr>
+										<td>
+												<input type="password" id="rpwd"  placeholder="Re-Type New Password" class="form2" />
+												
+										</td>
+								</tr>
+								
+								<tr>
+										<td align="center" style="color:#939598; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											<input type="button" value="Save" class="button" style="width:50%; float:left; margin-left:0%;" id="saveemail"/>
+											<span style="float:left; margin-left:20px; margin-top:15px;">or</span> <a href="#close" style="float:left; margin-top:15px; margin-left:15px;text-decoration: none;color: #939598;">CANCEL</a>
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+
+<div id="openModal3" class="modalbg" >
+ 			<div class="dialog" style="height:150px; padding-bottom:30px;">
+    			<a href="#close" title="Close" class="close">x</a>
+  						<h3 class="popup_head">Edit Phone No.</h3>
+						<table class="table">
+								
+								<tr>
+										<td>
+												<input type="text" id="edit_phone"  placeholder="Phone No" class="form2" />
+												
+										</td>
+								</tr>
+								
+								<tr>
+										<td align="center" style="color:#939598; margin-left:15px;  font-family: 'latoregular'; font-size:17px;">
+											
+											<input type="button" id="edit-phone" value="Save" class="button" style="width:50%; float:left; margin-left:0%;" />
+											
+											<span style="float:left; margin-left:20px; margin-top:15px;">or</span> <a href="#close" style="float:left; margin-top:15px; margin-left:15px;text-decoration: none;color: #939598;">CANCEL</a>
+										</td>
+								</tr>
+						</table>
+		</div>
+</div>
+
+
+	
+</body>
+</html>

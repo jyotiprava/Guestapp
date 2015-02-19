@@ -1,0 +1,114 @@
+/* CSS Document */
+
+html{ margin:0px; padding:0px;height:100%;}
+body{ margin:0px; padding:0px; background:#fff;height:100%;}
+a{ text-decoration:none;}
+#home_content{ width:100%; height:auto; float:left; text-align:center; margin-top:50px;}
+#home_content img{ width:120px;}
+#home_text{ width:100%; height:auto; float:left; font-family: 'latobold'; font-size:30px; text-transform:uppercase; color:#fff; text-align:center; margin-top:30px;}
+a{ text-decoration:none;}
+.button{
+    padding:7px;padding-left: 15px; padding-right: 15px;font-family: 'open_baskerville_0.0.75normal';font-size:20px;background:#e681a2;
+    color: #fff;width:80px;margin: auto;margin-top: 10px;cursor: pointer;text-transform:uppercase; border:none;
+}
+
+#logo_bar1{ width:100%; height:auto; float:left; text-align:center; margin-top:20px; margin-bottom:20px;}
+#logo_bar1 img{ width:120px;}
+#border_bar{ width:100%; height:auto; float:left;}
+#signin_box{ width:100%; height:auto; float:left; margin-top:10px;}
+.table{ width:100%; height:auto; float:left; line-height:1.8;}
+.table1{ width:100%; height:auto; float:left; border:none; border-collapse:collapse;}
+.table1 tr{ border-bottom:1px solid #c5c5c5; border-collapse:collapse; line-height:42px;  font-family: 'latoregular'; color:#939598; font-size:17px;}
+.table1 tr td{ padding-left:5%;}
+
+
+.form_head{font-family: 'open_sanslight'; color: #dc7874; font-size:25px; width:99%; margin-left:5%; text-transform:uppercase;}
+.form_headcolor{ color:#967c52;}
+.form{ border:none; width:95%; padding:0px; padding-left:5%; height:40px;  font-family:'latoregular'; font-size:18px; color:#333; border-top:1px solid #c5c5c5; background:#fff;}
+.form2{ border:none; width:95%; padding-left:5%; height:35px;  font-family:'latoregular'; font-size:18px; color:#333; border:1px solid #c5c5c5; background:#fff;}
+.form3{ border:none; width:85%; padding-left:5%; height:40px;  font-family:'latoregular'; font-size:18px; color:#333; border:1px solid #c5c5c5; background:#fff; margin-left:5%;}
+.form_border{ border-bottom:1px solid #c5c5c5; height:43px;}
+
+#signin_footer{ width:100%; height:auto; float:left; margin-top:25px;}
+#forgot_text{ width:90%; padding-left:5%; height:auto; float:left;font-family:Arial, Helvetica, sans-serif; font-size:15px; font-style:italic; color:#616161;}
+
+.text2{ font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; line-height:1.5;}
+.text3{ font-family: 'latoregular'; font-size:14px; color:#000; line-height:1.5;}
+#topbar_text{ width:100%; height:auto; float:left; text-align:center; font-family: 'latoregular';font-size:20px; color:#000; padding-top:15px; padding-bottom:15px; text-transform:uppercase;}
+#back_box{ width:25px; height:25px; float:left; position:absolute; z-index:9999; left:10px; top:15px;}
+#back_box img{ width:15px;}
+#done{float:right; position:absolute; z-index:999; top:15px; right:10px;  font-family: 'latoregular'; color:#e880a2; font-size:18px;}
+.profile_box1{ width:90%; padding-right:5%; padding-left:5%; height:auto; float:left; padding-top:13px; padding-bottom:13px; border-top:1px solid #c5c5c5; font-family: 'latoregular'; color:#939598; font-size:17px;}
+.border_bottom{ border-bottom:1px solid #c5c5c5;}
+.right_text{float:right; color:#000;}
+
+.popup_head{font-family: 'open_baskerville_0.0.75normal'; text-align:center; color:#939598; margin-bottom:8px;
+ text-transform:uppercase; letter-spacing:2px; font-size:20px; font-weight: normal;}
+.td_text{ color:#939598; text-transform:uppercase;}
+.mobile_menu{ position:absolute; z-index:9999; top:48px; left:20px;}
+.mobile_menu a img{ width:35px;}
+
+.head1{ width:100%; height:auto; float:left; font-family: 'open_baskerville_0.0.75normal'; font-size:23px; padding-top:10px; padding-bottom:10px; color:#939598; text-align:center; text-transform:uppercase; letter-spacing:2px;}
+#calendar_contentbox{ width:90%; height:auto; float:left; margin-left:5%;}
+.calendar_box{ width:94%; height:auto; float:left; padding:3%; border:1px solid #d1d1d1; background:#f6f6f6;}
+.calendar_box1{ width:100%; height:auto; float:left; border-bottom:1px solid #d1d1d1;  padding-bottom:5px; background:#f6f6f6; font-family: 'open_sanslight'; color:#000; font-size:14px; line-height:1.6;}
+.calendar_statusbox{ width:100%; height:auto; float:left; padding-top:8px;}
+.statusbox1{ width:52%; color:#939598; font-size:15px; font-family:'latoregular'; border-right:1px solid #d1d1d1; float:left;}
+.statusbox1 span{ float:left; margin-left:5px;}
+.bottom_line{ width:100%; height:5px; float:left; background:#e5e5e5; margin-bottom:20px;}
+.bottom_line2{ width:98%; height:3px; float:left; background:#e5e5e5; padding-left:10%; padding-right:10%; margin-bottom:20px;}
+.status_imgbox{width:30%; height:auto; float:left;}
+.status_imgbox img{border:3px solid #fff; box-shadow:0px 0px 1px 1px #d1d1d1;}
+.status_imgtext{ width:62%; height:auto; float:left; margin-left:15px;}
+
+.loto_bold{ font-family: 'latobold';}
+.loto_regular{ font-family:'latoregular';}
+.profile_imgbox{ width:100%; height:auto; float:left; padding-top:20px; padding-bottom:20px;}
+
+.code_button{ width:85%; height:auto; float:left; text-align:center; color:#000; padding:15px 7px;
+ font-family: 'latoregular'; background:rgba(230,230,230,0.8); border-radius:3px; font-size:14px; margin-left:5%; margin-top:290px;}
+ 
+.details_box{width:100%; border-right:none; border-bottom:1px solid #D1D1D1; padding-bottom:10px; padding-top:10px;}
+.checkin_head{ width:92%; height:auto; float:left; padding:4%; background:#f0f0d8; text-align:center; font-family: 'latoregular'; font-size:13px; color:#000; text-transform:uppercase; margin-top:2px;}
+.checkin_contentbox{ width:90%; height:auto; float:left; margin-left:5%;}
+.checkin_box1{ width:25%; height:auto; float:left; margin-right:8%;}
+
+.checkin_box2{ width:95%; height:100px; float:left; padding:10% 10px; border:1px solid #d1d1d1; background:#ffffff; text-align:center;  font-family: 'open_baskerville_0.0.75normal'; font-size:14px; color:#e880a2; text-transform:uppercase;}
+.checkin_box2 .span1{color:#777777;  font-family: 'open_sanslight';}
+
+.checkin_box3{ width:95%; height:100px; float:left; padding:10% 10px; border:1px solid #d1d1d1; background:#e880a2; text-align:center;  font-family: 'open_baskerville_0.0.75normal'; font-size:14px; color:#fff; text-transform:uppercase;}
+.checkin_box3 .span1{color:#fff;  font-family: 'open_sanslight';}
+
+.checkin_box4{ width:95%; height:100px; float:left; padding:10% 10px; border:1px solid #d1d1d1; background:#d1d1d1; text-align:center;  font-family: 'open_baskerville_0.0.75normal'; font-size:14px; color:#fff; text-transform:uppercase;}
+.checkin_box4 .span1{color:#fff;  font-family: 'open_sanslight';}
+.photo_box{width:94%; height:auto; float:left; margin-left:3%;}
+.phpto_box1{ width:100%; height:auto; float:left; margin-top:3%;}
+.imgbox1{ width:31%; height:auto; float:left; margin-right:3%; position:relative;}
+.imgbox1 img{ width:100%;}
+.right_icon{position:absolute; z-index:9999; float:left; left:10px; top:10px;}
+
+.mobilephpto_box{ width:100%; height:auto; float:left; }
+.mobile_imgbox1{ width:23%; height:auto; float:left; margin-left:2%;margin-top:2%;}
+.mobile_imgbox1 img { width:100%;}
+
+.tab1{ padding:7px;padding-left: 15px; padding-right: 15px;font-family: 'open_baskerville_0.0.75normal';font-size:20px;background:#e681a2;color: #fff;width:80px;margin: auto;margin-top: 10px;cursor: pointer;text-transform:uppercase; border:none;float:left; width:47%; margin-top:0px; padding:10px 0px; background:#fff; color:#e880a2; padding-left:3%;}
+
+.tab2{padding:7px;padding-left: 15px; padding-right: 15px;font-family: 'open_baskerville_0.0.75normal';font-size:20px;width:80px;margin: auto;margin-top: 10px;cursor: pointer;text-transform:uppercase; border:none;float:left; width:47%; margin-top:0px; padding:10px 0px; background:#e880a2; color:#fff; padding-left:3%;}
+.table3{ border-collapse:collapse;}
+.table3 tr{ height:60px; border-bottom:1px dotted #ccc;}
+.table3 tr td{ line-height:1.3; border-collapse:collapse;}
+.squarebox {
+    cursor: pointer;
+    float: left;
+    height: auto;
+    margin-left: 2px;
+    padding: 3px;
+    width: auto;
+}
+
+.squareactive1 {
+    background-color: #F2F2F2;
+}
+
+
+.selected{color: #E880A2;}

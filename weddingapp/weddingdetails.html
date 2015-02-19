@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>..::Wedding Penguin::..</title>
+<link href="style.css" rel="stylesheet" type="text/css"  />
+<link href="font.css" rel="stylesheet" type="text/css"  />
+<link href="pop.css" rel="stylesheet" type="text/css"  />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/urlval.js"></script>
+<!------------------------------------menu---------------------------->	
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+		<link rel="stylesheet" href="css/smk-accordion.css" />
+        
+		<script type="text/javascript" src="js/jquery-v1.7.1.js"></script>
+		<script type="text/javascript" src="js/jquery-hover-effect.js"></script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+<!---------------menu end-------------->
+<script type="application/javascript">
+$(function(){
+	var owner=localStorage.owner;
+	var email=localStorage.email;
+	
+var yohoAPI = urlval+"/weddingapp/eventdetail/?jsoncallback=?&owner="+owner+"&email="+email;
+  $.getJSON( yohoAPI, {
+    format: "json"
+  })
+  .done(function( data ) {
+	  $.each( data.items, function( i, it ) {
+		$('#profilepic').attr('src',it.profilepic);
+		$('#date').html(it.date);
+		$('#weddingname').html(it.weddingname+' Wedding');
+		$('#location').html(it.location);
+		$('#time').html(it.time);
+		$('.roomname').html(it.roomname);
+		$('#statuscolor').css('color',it.colour);
+		$('#statusname').html(it.statusname);
+		$('#statusimg').attr('src',it.statusimg);
+		$('#address').html(it.address);
+				
+	  });
+	
+  })
+  .error(function() { alert("Please check your network connection"); });
+  
+});
+</script>
+
+</head>
+<body>
+<!--------------------menu----------->
+<nav id="menu">
+		<ul>
+				<li><a href="#">Home</a></li>
+				<li class="selected"><a href="redpacket.html">Check Rates</a></li>
+				<li><a href="profile.html">My Profile</a></li>
+				<li><a href="calendar.html">Settings</a></li>
+		</ul>
+</nav>
+<!--------------menu end------------>
+<div class="mobile_menu">
+		<a href="#menu"><img src="images/index.png" /></a>
+</div>
+<div id="logo_bar1">
+		<img src="images/logo2.png"  />
+</div>
+<div id="topbar_text" style="position: relative;">
+		Wedding details
+		<span id="back_box" onclick="window.location.href='calendar.html'">
+				<img src="images/back.png"  />
+		</span>
+</div>
+<div id="border_bar">
+		<img src="images/border.jpg"  style="width:100%;"/>
+</div>
+<div class="profile_imgbox">
+		<div class="status_imgbox" style=" float:none;margin:auto; width:120px;">
+			<img src="images/img4.jpg" width="100%" id="profilepic"/>
+		</div>
+</div>
+<div id="calendar_contentbox">
+		<div class="calendar_box">
+				<div class="calendar_box1">
+						<span style="font-size:22px;" id="date">31 December 2014</span>
+						<br />
+						<span class="loto_bold" id="weddingname">John Doe & Maria Doe Wedding</span>
+						<br />
+						<span style="font-size:15px;" id="location">Resorts World Sentosa Equarius Hotel</span>
+						<br />
+						<span class="loto_regular" id="time">7:00 pm <span style="color:#939598;">at</span><span class="roomname"> Concourse Room</span></span>
+				</div>
+				<div class="calendar_statusbox">
+						<div class="statusbox1" style="width:100%; border-right:none; border-bottom:1px solid #D1D1D1; padding-bottom:10px;">
+								<span style="margin-left:0px;">Status</span>
+								<span style="color:#77ab59; float:right;" id="statuscolor"><img src="images/icon2.png"  width="20" style="float:left; padding-right:10px;" id="statusimg"/>  <span id="statusname">Accepted</span></span>
+						</div>
+						<div class="statusbox1 details_box">
+								<span style="margin-left:0px;float:left;width:20%;">Address</span>
+								<span style="float:left;width:78%; color:#000; text-align:right;line-height: 1.4;">
+										<span id="address" style="float:right; text-align:right;">12 Marina View, Asia Square<br /> Tower2, Marina Bay. Singapore<br /> 018961</span>
+								<span style="color:#e880a2; font-family: 'open_baskerville_0.0.75normal'; float:right; text-transform:uppercase;margin-right: 5px;">View MAP <span style="float:right;"><img src="images/more.png" style="width:13px;height: 13px;margin-top: 3px;margin-left: 5px;" /></span></span></span>
+						</div>
+						<div class="statusbox1 details_box">
+								<span style="margin-left:0px;">Room</span>
+								<span style="color:#77ab59; float:right; color:#000;" class="roomname">Concourse Room</span>
+						</div>
+						
+				</div>
+		</div>
+		<div class="bottom_line" style="margin-bottom:5px;"></div>
+		
+		<div class="button" style="width:80%; float:left; text-align:center;margin-bottom:15px; margin-left:5%;" onclick="window.location.href='qrcode.html'">ONLINE CHECK-in</div>	
+</div>
+
+
+	
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* CSS Document */
+
+@font-face {
+    font-family: 'latobold';
+    src: url('fonts/lato-bold-webfont.eot');
+    src: url('fonts/lato-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/lato-bold-webfont.woff2') format('woff2'),
+         url('fonts/lato-bold-webfont.woff') format('woff'),
+         url('fonts/lato-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'latoregular';
+    src: url('fonts/lato-regular-webfont.eot');
+    src: url('fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/lato-regular-webfont.woff2') format('woff2'),
+         url('fonts/lato-regular-webfont.woff') format('woff'),
+         url('fonts/lato-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'open_baskerville_0.0.75normal';
+    src: url('fonts/openbaskerville-0.0.75-webfont.eot');
+    src: url('fonts/openbaskerville-0.0.75-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/openbaskerville-0.0.75-webfont.woff2') format('woff2'),
+         url('fonts/openbaskerville-0.0.75-webfont.woff') format('woff'),
+         url('fonts/openbaskerville-0.0.75-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'open_sanslight';
+    src: url('fonts/opensans_light-webfont.eot');
+    src: url('fonts/opensans_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/opensans_light-webfont.woff2') format('woff2'),
+         url('fonts/opensans_light-webfont.woff') format('woff'),
+         url('fonts/opensans_light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
